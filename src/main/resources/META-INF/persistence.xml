@@ -3,6 +3,7 @@
   <persistence-unit name="dasi_TD1_jar_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>dasi.td1.metier.modele.Employe</class>
+    <class>dasi.td1.metier.modele.Client</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/DB_TD1"/>
       <property name="javax.persistence.jdbc.user" value="etarassov"/>

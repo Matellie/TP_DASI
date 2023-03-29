@@ -30,10 +30,9 @@ public class Client {
     }
 
     public Client(String nom, String prenom, Date dateNaissance, String adressePostale, String mail, String motDePasse) {
-        this.id = id;
-        this.dateNaissance = dateNaissance;
         this.nom = nom;
         this.prenom = prenom;
+        this.dateNaissance = dateNaissance;
         this.adressePostale = adressePostale;
         this.mail = mail;
         this.motDePasse = motDePasse;

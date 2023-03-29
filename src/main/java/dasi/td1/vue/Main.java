@@ -28,22 +28,23 @@ public class Main {
         Long test = new Long(1);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         
-        Client jose = null;
+        Client sam = null;
+        Client bob = null;
+        Client robin = null;
         
         try {
-            jose = new Client("FAVRO", "Samuel", sdf.parse("2000/12/20"), "20 avenue AE", "sfavro@gmail.com", "toto");
+            sam = new Client("FAVRO", "Samuel", sdf.parse("2000/12/20"), "20 avenue AE", "sfavro@gmail.com", "toto");
+            bob = new Client("GRIP", "Bob", sdf.parse("2010/04/20"), "20 avenue AE", "bobby@gmail.com", "toto");
+            robin = new Client("CRINGE", "Robin", sdf.parse("2006/08/20"), "20 avenue AE", "robina@gmail.com", "toto");
         } catch (ParseException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         JpaUtil.creerFabriquePersistance();
         
-        testerInitialiserEmployes();
-        testerTrouverEmployeParId(test);
-        testerListerTousEmployes();
-        testerAuthentifierEmploye("flou", "yolo");
-        testerAuthentifierEmploye("flou", "toto");
-        testerInscriptionclient(jose);
+        testerInscriptionclient(sam);
+        testerInscriptionclient(bob);
+        testerInscriptionclient(robin);
         
         JpaUtil.fermerFabriquePersistance();
     }
