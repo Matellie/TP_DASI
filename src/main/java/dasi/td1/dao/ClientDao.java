@@ -18,7 +18,6 @@ import javax.persistence.TypedQuery;
 public class ClientDao {
 
     public ClientDao() {
-        
     }
     
     public void create(Client client) {
@@ -30,7 +29,7 @@ public class ClientDao {
     }
     
     public boolean authenticateMail(String mail, String password) {
-        String s = "select c from Client c where c.login = :leLogin";
+        String s = "select c from Client c where c.mail = :leLogin";
         
         TypedQuery query = JpaUtil.obtenirContextePersistance().createQuery(s, Client.class);
         query.setParameter("leLogin", mail);

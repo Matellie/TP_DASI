@@ -141,5 +141,62 @@ public class Service {
         finally {
             JpaUtil.fermerContextePersistance();
         }
-    } 
+    }
+    
+    public Client trouverClientParId(Long id) {
+        ClientDao clientDao = new ClientDao();
+        Client cli = null;
+        
+        try {
+            JpaUtil.creerContextePersistance();
+            
+            cli = clientDao.findById(id);
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        
+        return cli;
+    }
+    
+    public boolean authentifierClientMail(String mail, String password) {
+        ClientDao clientDao = new ClientDao();
+        boolean auth = false;
+        
+        try {
+            JpaUtil.creerContextePersistance();
+            
+            auth = clientDao.authenticateMail(mail, password);
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        
+        return auth;
+    }
+    
+    public boolean authentifierClientId(Long id, String password) {
+        ClientDao clientDao = new ClientDao();
+        boolean auth = false;
+        
+        try {
+            JpaUtil.creerContextePersistance();
+            
+            auth = clientDao.authenticateId(id, password);
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        
+        return auth;
+    }
 }

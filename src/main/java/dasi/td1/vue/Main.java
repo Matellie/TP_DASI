@@ -25,7 +25,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Long test = new Long(1);
+        Long test = new Long(2);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         
         Client sam = null;
@@ -34,7 +34,7 @@ public class Main {
         
         try {
             sam = new Client("FAVRO", "Samuel", sdf.parse("2000/12/20"), "20 avenue AE", "sfavro@gmail.com", "toto");
-            bob = new Client("GRIP", "Bob", sdf.parse("2010/04/20"), "20 avenue AE", "bobby@gmail.com", "toto");
+            bob = new Client("GRIP", "Bob", sdf.parse("2010/04/20"), "20 avenue AE", "bobby@gmail.com", "popo");
             robin = new Client("CRINGE", "Robin", sdf.parse("2006/08/20"), "20 avenue AE", "robina@gmail.com", "toto");
         } catch (ParseException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -79,5 +79,28 @@ public class Main {
     public static void testerInscriptionclient(Client client) {
         Service service = new Service();
         service.inscriptionClient(client);
+    }
+    
+    public static void testerTrouverClientParId(Long id) {
+        Service service = new Service();
+        System.out.println(service.trouverClientParId(id).toString());
+    }
+    
+    public static void testerAuthentifierClientMail(String mail, String password) {
+        Service service = new Service();
+        if(service.authentifierClientMail(mail, password)) {
+            System.out.println("success");
+        } else {
+            System.out.println("rip");
+        }
+    }
+    
+    public static void testerAuthentifierClientId(Long id, String password) {
+        Service service = new Service();
+        if(service.authentifierClientId(id, password)) {
+            System.out.println("success");
+        } else {
+            System.out.println("rip");
+        }
     }
 }
