@@ -5,9 +5,13 @@
  */
 package dasi.td1.metier.service;
 
+import dasi.td1.dao.ClientDao;
 import dasi.td1.metier.modele.Employe;
 import dasi.td1.dao.EmployeDao;
 import dasi.td1.dao.JpaUtil;
+import dasi.td1.metier.modele.Client;
+import java.util.List;
+import util.Message;
 
 /**
  *
@@ -16,7 +20,6 @@ import dasi.td1.dao.JpaUtil;
 public class Service {
 
     public Service() {
-        System.out.println("rgghfd");
     }
     
     public void initialiserEmployes() {
@@ -53,5 +56,90 @@ public class Service {
         finally {
             JpaUtil.fermerContextePersistance();
         }
-    }    
+    } 
+    
+    public Employe trouverEmployeParId(Long id) {
+        EmployeDao employeDao = new EmployeDao();
+        Employe emp = null;
+        
+        try {
+            JpaUtil.creerContextePersistance();
+            
+            emp = employeDao.findById(id);
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        
+        return emp;
+    }
+    
+    public List<Employe> listerTousEmployes() {
+        EmployeDao employeDao = new EmployeDao();
+        List<Employe> listeEmp = null;
+        
+        try {
+            JpaUtil.creerContextePersistance();
+            
+            listeEmp = employeDao.findAll();
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        
+        return listeEmp;
+    }
+    
+    public boolean authentifierEmploye(String login, String password) {
+        EmployeDao employeDao = new EmployeDao();
+        boolean auth = false;
+        
+        try {
+            JpaUtil.creerContextePersistance();
+            
+            auth = employeDao.authenticate(login, password);
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        
+        return auth;
+    }
+    
+    public void inscriptionClient(Client client) {
+        Message message = new Message();
+        ClientDao clientDao = new ClientDao();
+        
+        String mailExpediteur = "Systeme";
+        String mailDestinataire = client.getMail();
+        
+        try {
+            JpaUtil.creerContextePersistance();
+            JpaUtil.ouvrirTransaction();
+            
+            clientDao.create(client);
+            
+            JpaUtil.validerTransaction();
+            
+            message.envoyerMail(mailExpediteur, mailDestinataire, "Confirmation inscription", "Vous etes bien inscrit !");
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            JpaUtil.annulerTransaction();
+            
+            message.envoyerMail(mailExpediteur, mailDestinataire, "Infirmation inscription", "Oups, une erreur s est produite !");
+        }
+        finally {
+            JpaUtil.fermerContextePersistance();
+        }
+    } 
 }
